@@ -44,7 +44,7 @@ class Client(object):
 def main():
     client = Client()
 
-    print('Fetching list of availavle modules from server..\n')
+    print('Fetching list of available modules from server..\n')
     request = '__modules__'
     response = client.call(request)
 
