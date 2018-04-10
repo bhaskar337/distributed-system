@@ -2,6 +2,7 @@ import pika
 import importlib
 import ast
 import pkgutil
+import time
 
 class Server:
     def __init__(self):
@@ -33,11 +34,13 @@ class Server:
 
 
     def on_request(self, ch, method, props, body):
+        start_time = time.time()
         request = body.decode()
         print('Request :', request)
 
         response = self.process_request(request)
-        print('Response :', response, '\n')
+        print('Response :', response)
+        print('Time taken :', time.time() - start_time, 'seconds\n')
 
         ch.basic_publish(exchange='',
                          routing_key=props.reply_to,
@@ -51,7 +54,7 @@ class Server:
         self.channel.basic_qos(prefetch_count=1)
         self.channel.basic_consume(self.on_request, queue='worker_queue')
 
-        print('Waiting for requests...')
+        print('Waiting for requests...\n')
         self.channel.start_consuming()
 
 
