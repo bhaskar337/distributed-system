@@ -3,12 +3,14 @@ import uuid
 import sys
 import ast
 
+URL = 'amqp://fltduuba:Ab5hRre535jg--4YYVXAfgcq11_O57-F@mustang.rmq.cloudamqp.com/fltduuba'
+
 class Client(object):
 
     def __init__(self):
         # self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
         
-        parameters = pika.URLParameters('amqp://fltduuba:QaD11fEKTQaRgM0ZUVQ7NbVF6fgs6gZP@mustang.rmq.cloudamqp.com/fltduuba')
+        parameters = pika.URLParameters(URL)
         self.connection = pika.BlockingConnection(parameters)        
 
         self.channel = self.connection.channel()
